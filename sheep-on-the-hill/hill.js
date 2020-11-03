@@ -28,6 +28,19 @@ export class Hill {
 		let prev = cur;
 
 		let dots = [];
+		cur.x += this.speed; // make the hill moving
+
+		// to make sure your hill is not cut off and continuous as moving
+		if (cur.x > -this.gap) {
+			// add a new point to the beg of array before the first points starts to move
+			this.points.unshift({
+				x: -(this.gap * 2),
+				y: this.getY(),
+			});
+		} else if (cur.x > this.stageWidth + this.gap) {
+			// when its out of browser, remove
+			this.points.splice(-1);
+		}
 
 		ctx.moveTo(cur.x, cur.y);
 
@@ -36,8 +49,10 @@ export class Hill {
 
 		for (let i = 1; i < this.points.length; i++) {
 			cur = this.points[i];
+			cur.x += this.speed;
 
 			// control points for curved line
+			// control points are points that are between your starting and end points
 			const cx = (prev.x + cur.x) / 2;
 			const cy = (prev.y + cur.y) / 2;
 			ctx.quadraticCurveTo(prev.x, prev.y, cx, cy);
