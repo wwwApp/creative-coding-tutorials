@@ -7,7 +7,6 @@ export class Text {
 		// this.canvas.style.left = '0';
 		// this.canvas.style.top = '0';
 		// document.body.appendChild(this.canvas);
-
 		this.ctx = this.canvas.getContext('2d');
 	}
 
@@ -58,6 +57,7 @@ export class Text {
 				pixel = imageData[(width + height * stageHeight) * 4 - 1];
 				if (
 					pixel != 0 &&
+					width > 0 &&
 					width < stageWidth &&
 					height > 0 &&
 					height < stageHeight
@@ -129,8 +129,6 @@ export class Text {
 						minY: pos.item.y,
 						maxY: pos.item.y,
 					});
-
-					// check = 1;
 				} else if (check == 1) {
 					if (pointCircle(pos.x, pos.item.y, pos.x, prevY, gap)) {
 						const curr = outline[outline.length - 1];
